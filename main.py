@@ -12,7 +12,9 @@ logger.addHandler(handler)
 # Conversion from sec to min
 MIN = 5
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 
 async def start():
     await retrieve_active_voice_channel()
