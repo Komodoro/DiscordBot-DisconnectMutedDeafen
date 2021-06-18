@@ -14,22 +14,10 @@ MIN = 5
 
 client = discord.Client()
 
-
 async def start():
     await retrieve_active_voice_channel()
-    async def join(ctx):
-      # Retrieve a active voice channel
-      voice_channel = ctx.retrieve_active_voice_channel()
-      # Join the voice channel
-      await voice_channel.connect()
-
-    async def kick_member_and_disconnect(ctx):
-        # Leave the channel
-        print("Leaving voice channel")
-        await ctx.voice_client.disconnect()
-        # Announce that the tour is beginning
-  
-#@client.event
+ 
+@client.event
 async def on_message(message):
   if message.author == client.user:
     return
@@ -38,20 +26,19 @@ async def on_message(message):
 
 async def retrieve_active_voice_channel():
       """Scans all active voice channels the bot can see and returns one"""
-      # Get all channels the bot can see
       print("Here get channels")
       text_channel_list = []
+      b = 1
       for guild in client.guilds:
-          print(guild)
-          for channel in guild.voice_channels:
-            if len(channel.members) > 0:
+          print(guild.voice_channels)
+          for VoiceChannel in guild.voice_channels:
+           # if len(channel.members) > 0:
               # We found an active voice channel!
-              text_channel_list.append(channel)
+              text_channel_list.append(VoiceChannel.name)
+              print("increment:"+b)
+              b = b + 1
               # xhannel = text_channel_list.append(channel)
-              print(channel)
-              return channel
-      
-
+              print(VoiceChannel.name)
 @client.event
 async def on_ready():
   print('This {0.user}'
@@ -64,6 +51,5 @@ async def on_ready():
       # Try to kick a user from a channel
       await start()
       print("here 3")
-      
 
 client.run(os.environ['token'])
