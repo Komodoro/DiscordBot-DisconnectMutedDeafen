@@ -30,15 +30,38 @@ async def retrieve_active_voice_channel():
       text_channel_list = []
       b = 1
       for guild in client.guilds:
+          print(guild)
+          print("space - guilds")
+          print(guild.members)
           print(guild.voice_channels)
+          #if isinstance(channel, discord.VoiceChannel):
+          #  if len(channel.members) > 0:
+                # We found an active voice channel!
           for VoiceChannel in guild.voice_channels:
            # if len(channel.members) > 0:
               # We found an active voice channel!
               text_channel_list.append(VoiceChannel.name)
-              print("increment:"+b)
+              print("increment:", b)
               b = b + 1
+              print(VoiceChannel.members)
               # xhannel = text_channel_list.append(channel)
-              print(VoiceChannel.name)
+              print(VoiceChannel.voice_states )
+              print("channel id")
+              channel = client.get_channel(VoiceChannel.id) 
+              print("print channel name",channel.name)
+              #gets the channel you want to get the list from
+              print("associate members in specific channel")
+              members = channel.members #finds members connected to the channel
+              print(members)
+              memids = [] #(list)
+              print("print the members id's")
+              for member in members:
+                  memids.append(member.id)
+              print(memids) #print info
+              print("finish after this")
+              #for members in VoiceChannel.members
+              #  print(members)
+      
 @client.event
 async def on_ready():
   print('This {0.user}'
