@@ -2,6 +2,8 @@ import asyncio
 import discord
 import os
 import logging
+import re
+from discord.ext.commands import Bot
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -15,9 +17,20 @@ MIN = 5
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
+voicestate = discord.member.VoiceState
+bot = Bot("!")
 
 async def start():
     await retrieve_active_voice_channel()
+
+@bot.command()
+async def leave(ctx, member : discord.VoiceClient):
+    await discord.VoiceClient.disconnect(self)
+
+@bot.command()
+async def vkick(self, ctx, target_member: discord.Member):
+    """Kicks a Member from a voice channel"""
+    await target_member.move_to(None)
  
 @client.event
 async def on_message(message):
@@ -32,22 +45,16 @@ async def retrieve_active_voice_channel():
       text_channel_list = []
       b = 1
       for guild in client.guilds:
-          print(guild)
-          print("space - guilds")
-          print(guild.members)
           print(guild.voice_channels)
-          #if isinstance(channel, discord.VoiceChannel):
-          #  if len(channel.members) > 0:
-                # We found an active voice channel!
           for VoiceChannel in guild.voice_channels:
-           # if len(channel.members) > 0:
               # We found an active voice channel!
+              print("Voice channel info:", VoiceChannel)
               text_channel_list.append(VoiceChannel.name)
               print("increment:", b)
               b = b + 1
-              print(VoiceChannel.members)
+              # print("print VoiceChannel Members", VoiceChannel.members)
               # xhannel = text_channel_list.append(channel)
-              print(VoiceChannel.voice_states )
+              print("print Voice Channel Voice states", VoiceChannel.voice_states )
               print("channel id")
               channel = client.get_channel(VoiceChannel.id) 
               print("print channel name",channel.name)
@@ -58,18 +65,28 @@ async def retrieve_active_voice_channel():
               memids = [] #(list)
               print("print the members id's")
               for member in members:
-                  memids.append(member.id)
-              print(memids) #print info
+                  memberids = member.id
+                  print("member:", member)
+                  print("member id:", member.id)
+                  print("member name:", member.name)
+                  states = channel.voice_states
+                  strikes = [states[memberids]]
+                  strikes0 = strikes[0]
+                  print(strikes0)
+                  if re.search("self_mute=True", str(strikes0)):
+                  # if re.search("self_mute=True self_deaf=False", str(strikes0)):
+                    print("kick")
+                    await vkick(None,None,member)
               print("finish after this")
-              #for members in VoiceChannel.members
-              #  print(members)
-      
+
 @client.event
 async def on_ready():
   print('This {0.user}'
   .format(client))
   while True:
       # Start the scheduler for a random time
+      print(discord.version_info)
+      print(discord.__version__)
       print("here 1")
       await asyncio.sleep(MIN)
       print("here 2")
