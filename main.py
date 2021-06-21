@@ -17,15 +17,10 @@ MIN = 5
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
-voicestate = discord.member.VoiceState
 bot = Bot("!")
 
 async def start():
     await retrieve_active_voice_channel()
-
-@bot.command()
-async def leave(ctx, member : discord.VoiceClient):
-    await discord.VoiceClient.disconnect(self)
 
 @bot.command()
 async def vkick(self, ctx, target_member: discord.Member):
