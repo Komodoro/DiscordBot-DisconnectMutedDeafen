@@ -1,5 +1,3 @@
 asyncio
 discord
-logging
 re
-discord.ext.commands
