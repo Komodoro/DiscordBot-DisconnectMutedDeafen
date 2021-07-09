@@ -1,0 +1,6 @@
+asyncio
+discord
+os
+logging
+re
+discord.ext.commands
