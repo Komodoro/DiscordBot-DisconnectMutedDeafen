@@ -68,8 +68,7 @@ async def retrieve_active_voice_channel():
                   strikes = [states[memberids]]
                   strikes0 = strikes[0]
                   print(strikes0)
-                  if re.search("self_mute=True", str(strikes0)):
-                  # if re.search("self_mute=True self_deaf=False", str(strikes0)):
+                  if re.search("self_mute=True self_deaf=True", str(strikes0)):
                     print("kick")
                     await vkick(None,None,member)
               print("finish after this")
