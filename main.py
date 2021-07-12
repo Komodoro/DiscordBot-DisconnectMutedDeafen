@@ -83,7 +83,8 @@ async def retrieve_active_voice_channel():
                     channelget = client.get_channel(863030632846589983)
                     # test channel
                     # channel = client.get_channel(797123135467814929)
-                    embed = discord.Embed(title="Kick aos Teclas 3",description=str(member)+" | "+ str(member.name),color=0x9208ea,timestamp = now.utcnow())
+                    embed = discord.Embed(title="Kick aos Teclas 3",description=str(member)+" | "+ str(member.nick),color=0x9208ea,timestamp = now.utcnow())
+                    embed.set_thumbnail(url=member.avatar_url)
                     embed.set_footer(text="Do: "+str(channel))
                     embed.set_image(url=random.choice(link_list))
                     await channelget.send(embed=embed)
