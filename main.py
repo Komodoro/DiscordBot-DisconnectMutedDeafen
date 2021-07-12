@@ -80,13 +80,13 @@ async def retrieve_active_voice_channel():
                     await vkick(None,None,member)
                     # Still need to fix this as a indepedent config value
                     # right channel
-                    channel = client.get_channel(863030632846589983)
+                    channelget = client.get_channel(863030632846589983)
                     # test channel
                     # channel = client.get_channel(797123135467814929)
                     embed = discord.Embed(title="Kick aos Teclas 3",description=str(member),color=0x9208ea,timestamp = now.utcnow())
-                    embed.set_footer(text="Created by Komodoro")
+                    embed.set_footer(text="Do: "+str(channel))
                     embed.set_image(url=random.choice(link_list))
-                    await channel.send(embed=embed)
+                    await channelget.send(embed=embed)
                     return
               print("finish after this")
 
